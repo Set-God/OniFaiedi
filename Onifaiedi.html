@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>オニファイエディ</title>
+   
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <div class="container">
+      <h1>オニファイエディOnifaiedi</h1>
+      
+      
+      <textarea placeholder="テキストを入力...pleace text..." id="text"></textarea>
+      
+      
+      <input placeholder="ファイル名（拡張子必須）" id="filename">
+      
+      
+      <button id="download">ファイルをダウンロード</button>
+   </div>
+   <!-- Javascript設定 -->
+   
+   <script type="text/javascript">
+      // 関数設定
+      function downloadFile(filename, content) {
+         // aタグの設定
+         const element = document.createElement('a');
+         
+         // aタグblob
+         
+         // タイプ設定
+         // 開発者:おにぎり
+         const blob = new Blob([content], {
+            type: 'plain/text'
+         });
+         
+         // blobのURLを追加する変数 パラメーター含む 
+         
+         const fileUrl = URL.createObjectURL(blob);
+         
+         // 属性を設定 新しいエレメントドキュメントaタグ 
+         element.setAttribute('href', fileUrl); // ファイルの場所
+         element.setAttribute('download', filename); // ファイル名
+         
+         element.style.display = 'none';
+         
+         // 新しいaタグのチャイルドつまり子を親ボディにする
+         document.body.appendChild(element);
+         element.click();
+         
+         // 新しいaタグのチャイルドつまり子を親ボディ消去
+         document.body.removeChild(element);
+      };
+      
+      
+      
+      
+      window.onload = () => {
+         document.getElementById('download').addEventListener('click', e => {
+            // テキストエリアの値を取得する
+            const filename = document.getElementById('filename').value;
+            // 拡張子または名前を打つ所のボックスを取得
+            const content = document.getElementById('text').value;
+            
+            // if文開始
+            
+            
+            if (filename && content) {
+               downloadFile(filename, content);
+            }
+         });
+      }
+   </script>
+</body>
+</html>
